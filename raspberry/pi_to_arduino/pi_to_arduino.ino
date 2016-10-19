@@ -1,6 +1,11 @@
 #define DELA 500
 #define DSHORT 250
-const int LED = 11;
+
+const int LED = 9;
+const int TEMP = 11;
+int sensorValue=0;
+
+String temperature = "temp";
 
 void setup()
 {
@@ -10,9 +15,19 @@ void setup()
 
 void loop()
 {
-  if(Serial.available())
-  {light(Serial.read() - '0');}
-  delay(DELA);
+  //digitalWrite(LED,LOW);
+  if(Serial.available()){
+   
+    //Ontvangen data van pi
+    String incoming = Serial.readString();
+    
+    //Als het commando temp is pink dan met het licht en stuur temp
+    if (incoming == temperature){
+      light(1);
+      sendTemp();
+    } 
+  }
+  
 }
 
 void light(int n){
@@ -23,4 +38,10 @@ void light(int n){
     digitalWrite(LED,LOW);
     delay(DSHORT);
   }
+  
+}
+
+void sendTemp(){
+  sensorValue = analogRead(TEMP);
+  Serial.println(sensorValue,BIN);
 }
