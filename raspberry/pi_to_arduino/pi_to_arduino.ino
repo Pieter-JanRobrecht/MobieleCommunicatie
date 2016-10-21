@@ -15,7 +15,8 @@ void setup()
 
 void loop()
 {
-  //digitalWrite(LED,LOW);
+  digitalWrite(LED,LOW);
+  delay(1000);
   if(Serial.available()){
    
     //Ontvangen data van pi
