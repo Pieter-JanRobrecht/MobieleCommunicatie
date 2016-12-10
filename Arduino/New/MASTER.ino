@@ -25,12 +25,15 @@ byte conn1[3][8];
 byte conn2[3][8];
 byte conn3[3][8];
 int connMatrix[4][4];
-String temp1 = "temp1";
-String temp2 = "temp2";
-String temp3 = "temp3";
-String light1 = "light1";
-String light2 = "light2";
-String light3 = "light3";
+String t1 = "t1";
+String t2 = "t2";
+String t3 = "t3";
+String l1 = "l1";
+String l2 = "l2";
+String l3 = "l3";
+String sunrise1 = "s1";
+String sunrise2 = "s2";
+String sunrise3 = "s3";
 
 
 
@@ -55,12 +58,15 @@ void loop() {
     //Ontvangen data van pi
     String incoming = Serial.readString();
     //Als het commando temp is pink dan met het licht en stuur temp
-    if (incoming == temp1){ sendTemp1(); } 
-    if (incoming == temp2){ sendTemp2(); } 
-    if (incoming == temp3){ sendTemp3(); } 
-    if (incoming == light1){ sendLight1(); }
-    if (incoming == light2){ sendLight2(); } 
-    if (incoming == light3){ sendLight3(); } 
+    if (incoming == t1){ sendTemp1(); } 
+    if (incoming == t2){ sendTemp2(); } 
+    if (incoming == t3){ sendTemp3(); } 
+    if (incoming == l1){ sendLight1(); }
+    if (incoming == l2){ sendLight2(); } 
+    if (incoming == l3){ sendLight3(); } 
+    if (incoming == sunrise1){ callsunrise1(); } 
+    if (incoming == sunrise2){ callsunrise2(); } 
+    if (incoming == sunrise3){ callsunrise3(); }
   }
 
   xbee.listen();
@@ -116,7 +122,7 @@ void checkReceived() {
         //Serial.println(test);
         handleTransmitRequest();
       } else if (test == 0x8B) {
-        //Serial.println("Transmit Status------------------ ");
+       // Serial.println("Transmit Status------------------ ");
         handleTransmitStatus();
       }
       else {
@@ -202,11 +208,11 @@ void handleTransmitRequest() {
     case 1:
       //Serial.println("info ontvangen");
       setRGB(0, 0, 255);
-      light[index] = nextRead();
-      temp[index] = nextRead();
+      light[index-1] = nextRead();
+      temp[index-1] = nextRead();
       //Serial.println(light[index]);
       //Serial.println(temp[index]);
-      printInfo();
+     // printInfo();
       break;
     case 0xFF:
       //Serial.println("Check Received");
@@ -344,7 +350,7 @@ void saveMacAddressInAll() {
       break;
     }
   }
-  printAll();
+  //printAll();
 }
 
 boolean emptyRowInAll(int j){
@@ -371,7 +377,7 @@ void deleteRowInAll(int j) {
   for (int i = 0; i < 8; i++) {
     all[j][i] = 0;
   }
-  printAll();
+  //printAll();
 }
 
 void printAll() {
@@ -453,7 +459,18 @@ void sendLight2(){
 void sendLight3(){
   Serial.println(light[2]);
 }
-
+void callsunrise1(){
+  Serial.println("sunrise1 gestart");
+  sendCommandTo(1, 11, 0, 0, 0);
+}
+void callsunrise2(){
+  Serial.println("sunrise2 gestart");
+  sendCommandTo(2, 11, 0, 0, 0);
+}
+void callsunrise3(){
+  Serial.println("sunrise3 gestart");
+  sendCommandTo(3, 11, 0, 0, 0);
+}
 
 
  void initializeConnMatrix(){
