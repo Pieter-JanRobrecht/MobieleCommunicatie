@@ -1,0 +1,21 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.NameError'> global name 'p' is not defined"
+p3
+sS'layer'
+p4
+S'C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py'
+p5
+sS'code'
+p6
+S'import re\n\nfrom bokeh.embed import file_html\nfrom bokeh.plotting import figure\nfrom bokeh.resources import CDN\nfrom math import pi\nfrom bokeh.models import DatetimeTickFormatter\n\n\ndef index():\n    rows = db(db.sensor.id > 0).select()\n    return dict(message="hello from overzicht.py", rijen=rows)\n\n\ndef detail():\n    sensorNaam = request.vars[\'naam\']\n    timeString = db(db.data.sensor == sensorNaam).select(db.data.tijd).as_list()\n    tempString = db(db.data.sensor == sensorNaam).select(db.data.temperatuur).as_list()\n\n    temp = []\n    time = []\n\n    for var in tempString:\n        waarde = re.search(r"\\d+", str(var)).group()\n        temp.append(waarde)\n\n    for var in timeString:\n        waarde = re.search(r"\\d+", str(var)).group()\n        # waarde= (tm.strftime(\'%Y-%m-%d %H:%M:%S\', tm.gmtime(float(waarde))))\n        time.append(waarde)\n\n    print time\n\n    plot = figure(x_axis_type="datetime")\n    plot.xaxis.formatter = DatetimeTickFormatter(formats=dict(\n        hours=["%d %B %Y"],\n        days=["%d %B %Y"],\n        months=["%d %B %Y"],\n        years=["%d %B %Y"],\n    ))\n    p.xaxis.major_label_orientation = pi / 4\n    plot.line(x=time, y=temp)\n\n    html = file_html(plot, CDN, "my plot")\n    return dict(bokeh_script=html)\n\nresponse._vars=response._caller(detail)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+sS'traceback'
+p10
+S'Traceback (most recent call last):\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\restricted.py", line 227, in restricted\n    exec ccode in environment\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py", line 47, in <module>\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\globals.py", line 417, in <lambda>\n    self._caller = lambda f: f()\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py", line 41, in detail\n    p.xaxis.major_label_orientation = pi / 4\nNameError: global name \'p\' is not defined\n'
+p11
+s.

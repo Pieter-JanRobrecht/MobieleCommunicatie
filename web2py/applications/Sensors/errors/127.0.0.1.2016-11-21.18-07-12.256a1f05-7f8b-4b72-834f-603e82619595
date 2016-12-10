@@ -1,0 +1,21 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.MemoryError'> "
+p3
+sS'layer'
+p4
+S'C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py'
+p5
+sS'code'
+p6
+S'# -*- coding: utf-8 -*-\n# probeer zoiets als\n\ndef index():\n    rows = db(db.sensor.id > 0).select()\n    return dict(message="hello from overzicht.py", rijen=rows)\n\n\ndef detail():\n    #print("detail() in overzicht.py")\n    sensorNaam = request.vars[\'naam\']\n    time = db(db.data.sensor == sensorNaam).select(db.data.tijd)\n    temp = db(db.data.sensor == sensorNaam).select(db.data.temperatuur)\n    field_objects = [f for f in db.data.sensor]\n\n    print(field_objects)\n\n    from bokeh.plotting import figure\n    from bokeh.resources import CDN\n    from bokeh.embed import file_html\n\n    #response.files.extend(list_of_Bokeh_JS_and_CSS_static_file_URLs)\n\n    plot = figure()\n    plot.line(x=time, y=temp)\n\n    html = file_html(plot, CDN, "my plot")\n    return dict(bokeh_script=html)\n\nresponse._vars=response._caller(detail)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+sS'traceback'
+p10
+S'Traceback (most recent call last):\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\restricted.py", line 227, in restricted\n    exec ccode in environment\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py", line 30, in <module>\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\globals.py", line 417, in <lambda>\n    self._caller = lambda f: f()\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py", line 14, in detail\nMemoryError\n'
+p11
+s.

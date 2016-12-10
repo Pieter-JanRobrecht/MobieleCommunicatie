@@ -1,0 +1,21 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.IndexError'> string index out of range"
+p3
+sS'layer'
+p4
+S'C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py'
+p5
+sS'code'
+p6
+S'import re\n\nfrom bokeh.embed import file_html\nfrom bokeh.plotting import figure\nfrom bokeh.resources import CDN\nimport datetime\n\n\ndef index():\n    rows = db(db.sensor.id > 0).select()\n    return dict(message="hello from overzicht.py", rijen=rows)\n\n\ndef removeOldClock(sensorId):\n    functieNaam = "tijd" + sensorId\n    if not db(db.scheduler_task.function_name == functieNaam).isempty():\n        db(db.scheduler_task.function_name == functieNaam).delete()\n\n\ndef createSchedule(tijdstip):\n    print("create")\n    functieNaam = "tijd" + request.vars[\'naam\']\n    today = datetime.date.today()\n    today + datetime.timedelta(days=1)\n    split = tijdstip.split(":")[0]\n    today + datetime.timedelta(hours=split[0], minutes=split[1], seconds=split[2])\n    print today\n    mysched.queue_task(functieNaam, start_time=today, repeats=0, period=86400)\n\n\ndef detail():\n    form = FORM(TABLE(TR(\'Tijdstip:\', INPUT(_name=\'name\', requires=IS_TIME())), TR(INPUT(_type=\'submit\'))))\n    if form.accepts(request, session):\n        removeOldClock(request.vars[\'naam\'])\n        tijdstip = request.vars[\'name\']\n        createSchedule(tijdstip)\n        response.flash = T("Wekker staat aan")\n    elif form.errors:\n        response.flash = T("Fout ingegeven")\n\n    sensorNaam = request.vars[\'naam\']\n    timeString = db(db.data.sensor == sensorNaam).select(db.data.tijd).as_list()\n    tempString = db(db.data.sensor == sensorNaam).select(db.data.temperatuur).as_list()\n\n    temp = []\n    time = []\n\n    for var in tempString:\n        waarde = re.search(r"\\d+", str(var)).group()\n        temp.append(waarde)\n\n    for var in timeString:\n        waarde = re.search(r"\\d+", str(var)).group()\n        # waarde= (tm.strftime(\'%Y-%m-%d %H:%M:%S\', tm.gmtime(float(waarde))))\n        time.append(waarde)\n\n    plot = figure(x_axis_type="datetime")\n    plot.line(time, temp)\n\n    html = file_html(plot, CDN, "my plot")\n    return dict(bokeh_script=html, name=sensorNaam, form=form)\n\nresponse._vars=response._caller(detail)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+sS'traceback'
+p10
+S'Traceback (most recent call last):\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\restricted.py", line 227, in restricted\n    exec ccode in environment\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py", line 63, in <module>\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\globals.py", line 417, in <lambda>\n    self._caller = lambda f: f()\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py", line 36, in detail\n    createSchedule(tijdstip)\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py", line 26, in createSchedule\n    today + datetime.timedelta(hours=split[0], minutes=split[1], seconds=split[2])\nIndexError: string index out of range\n'
+p11
+s.

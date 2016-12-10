@@ -1,0 +1,21 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.ValueError'> invalid literal for long() with base 10: 'sensor1'"
+p3
+sS'layer'
+p4
+S'C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py'
+p5
+sS'code'
+p6
+S'# -*- coding: utf-8 -*-\n# probeer zoiets als\nimport matplotlib.pyplot as plt\n\n\ndef index():\n    rows = db(db.sensor.id > 0).select()\n    return dict(message="hello from overzicht.py", rijen=rows)\n\n\ndef detail():\n    sensorNaam = request.vars[\'naam\']\n    rows = db(db.data.sensor == sensorNaam).select()\n    return dict(hello=sensorNaam)\n\nresponse._vars=response._caller(detail)\n'
+p7
+sS'snapshot'
+p8
+(dp9
+sS'traceback'
+p10
+S'Traceback (most recent call last):\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\restricted.py", line 227, in restricted\n    exec ccode in environment\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py", line 16, in <module>\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\globals.py", line 417, in <lambda>\n    self._caller = lambda f: f()\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\applications\\Sensors\\controllers/overzicht.py", line 13, in detail\n    rows = db(db.data.sensor == sensorNaam).select()\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\packages\\dal\\pydal\\objects.py", line 2020, in select\n    return adapter.select(self.query, fields, attributes)\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\packages\\dal\\pydal\\adapters\\sqlite.py", line 123, in select\n    return super(SQLiteAdapter, self).select(query, fields, attributes)\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\packages\\dal\\pydal\\adapters\\base.py", line 1283, in select\n    sql = self._select(query, fields, attributes)\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\packages\\dal\\pydal\\adapters\\base.py", line 1170, in _select\n    sql_w = \' WHERE \' + self.expand(query) if query else \'\'\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\packages\\dal\\pydal\\adapters\\base.py", line 952, in expand\n    rv = op(first, second, **optional_args)\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\packages\\dal\\pydal\\adapters\\base.py", line 846, in EQ\n    self.expand(second, first.type))\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\packages\\dal\\pydal\\adapters\\base.py", line 962, in expand\n    rv = self.represent(expression, field_type)\n  File "C:\\Users\\Pieter-Jan\\PycharmProjects\\untitled\\web2py\\gluon\\packages\\dal\\pydal\\adapters\\base.py", line 1442, in represent\n    return str(long(obj))\nValueError: invalid literal for long() with base 10: \'sensor1\'\n'
+p11
+s.

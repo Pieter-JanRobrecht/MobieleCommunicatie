@@ -1,0 +1,2 @@
+#crontab
+*/1 * * * * root python *applications/Sensors/modules/background_updater.py
