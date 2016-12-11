@@ -1,7 +1,7 @@
 import serial
 import time
 
-#ser = serial.Serial('/dev/cu.usbmodemfa131', 9600, timeout=1)
+ser = serial.Serial('COM5', 9600, timeout=1)
 ser = serial.Serial()
 ser.port = '/dev/cu.usbmodemfa131'
 ser.baudrate = 9600
